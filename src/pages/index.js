@@ -44,6 +44,7 @@ export const pageQuery = graphql`
         node {
           title
           createdAt(formatString: "MMMM Do, YYYY")
+          slug
           body {
             childMarkdownRemark {
               html
