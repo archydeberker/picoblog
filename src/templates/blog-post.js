@@ -6,7 +6,7 @@ import Img from "gatsby-image";
 import Layout from "../components/layout";
 import Gallery from "@browniebroke/gatsby-image-gallery";
 import "@browniebroke/gatsby-image-gallery/dist/style.css";
-// import heroStyles from "../components/hero.module.css";
+import heroStyles from "../components/hero.module.css";
 
 class BlogPostTemplate extends React.Component {
   render() {
@@ -17,7 +17,15 @@ class BlogPostTemplate extends React.Component {
       <Layout location={this.props.location}>
         <div style={{ background: "#fff" }}>
           <Helmet title={`${post.title} | ${siteTitle}`} />
-
+          <div className={heroStyles.hero}>
+            {post.coverImage && (
+              <Img
+                className={heroStyles.heroImage}
+                alt={post.title}
+                fluid={post.coverImage.fluid}
+              />
+            )}
+          </div>
           <div className="wrapper">
             <h1 className="section-headline">{post.title}</h1>
             <p
@@ -53,6 +61,11 @@ export const pageQuery = graphql`
       body {
         childMarkdownRemark {
           html
+        }
+      }
+      coverImage {
+        fluid(maxWidth: 1180, background: "rgb:000000") {
+          ...GatsbyContentfulFluid_tracedSVG
         }
       }
       media {
