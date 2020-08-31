@@ -4,8 +4,9 @@ import { Helmet } from "react-helmet";
 import get from "lodash/get";
 import Img from "gatsby-image";
 import Layout from "../components/layout";
-
-import heroStyles from "../components/hero.module.css";
+import Gallery from "@browniebroke/gatsby-image-gallery";
+import "@browniebroke/gatsby-image-gallery/dist/style.css";
+// import heroStyles from "../components/hero.module.css";
 
 class BlogPostTemplate extends React.Component {
   render() {
@@ -16,13 +17,7 @@ class BlogPostTemplate extends React.Component {
       <Layout location={this.props.location}>
         <div style={{ background: "#fff" }}>
           <Helmet title={`${post.title} | ${siteTitle}`} />
-          {/* <div className={heroStyles.hero}>
-            <Img
-              className={heroStyles.heroImage}
-              alt={post.title}
-              fluid={post.heroImage.fluid}
-            />
-          </div> */}
+
           <div className="wrapper">
             <h1 className="section-headline">{post.title}</h1>
             <p
@@ -32,11 +27,15 @@ class BlogPostTemplate extends React.Component {
             >
               {post.publishDate}
             </p>
+
             <div
               dangerouslySetInnerHTML={{
                 __html: post.body.childMarkdownRemark.html,
               }}
             />
+
+            {post.media && <h2> Gallery </h2>}
+            {post.media && <Gallery images={post.media} />}
           </div>
         </div>
       </Layout>
@@ -54,6 +53,14 @@ export const pageQuery = graphql`
       body {
         childMarkdownRemark {
           html
+        }
+      }
+      media {
+        thumb: fluid(maxWidth: 270, maxHeight: 270) {
+          ...GatsbyContentfulFluid
+        }
+        full: fluid(maxWidth: 1024) {
+          ...GatsbyContentfulFluid
         }
       }
     }
