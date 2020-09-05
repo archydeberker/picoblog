@@ -1,3 +1,5 @@
+const { createFilePath } = require(`gatsby-source-filesystem`);
+
 const Promise = require("bluebird");
 const path = require("path");
 
@@ -21,7 +23,8 @@ exports.createPages = ({ graphql, actions }) => {
                     body
                   }
                   user {
-                    number
+                    name
+                    slug
                   }
                 }
               }
@@ -29,7 +32,8 @@ exports.createPages = ({ graphql, actions }) => {
             allContentfulUser {
               edges {
                 node {
-                  number
+                  name
+                  slug
                 }
               }
             }
@@ -44,7 +48,7 @@ exports.createPages = ({ graphql, actions }) => {
         const posts = result.data.allContentfulPost.edges;
         posts.forEach((post) => {
           createPage({
-            path: `/blog/${post.node.user.number}/${post.node.slug}/`,
+            path: `/blog/${post.node.user.slug}/${post.node.slug}/`,
             component: blogPost,
             context: {
               slug: post.node.slug,
@@ -56,10 +60,10 @@ exports.createPages = ({ graphql, actions }) => {
 
         users.forEach((user) => {
           createPage({
-            path: `/blog/${user.node.number}`,
+            path: `/blog/${user.node.slug}`,
             component: userPage,
             context: {
-              number: user.node.number,
+              slug: user.node.slug,
             },
           });
         });

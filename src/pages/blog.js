@@ -21,7 +21,7 @@ class BlogIndex extends React.Component {
             <ul className="article-list">
               {posts.map(({ node }) => {
                 return (
-                  <li key={node.slug}>
+                  <li key={[node.user.id, node.slug].join("/")}>
                     <ArticlePreview article={node} />
                   </li>
                 );
@@ -48,6 +48,9 @@ export const pageQuery = graphql`
             childMarkdownRemark {
               html
             }
+          }
+          user {
+            slug
           }
         }
       }

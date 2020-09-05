@@ -15,7 +15,7 @@ class UserPageTemplate extends React.Component {
 
     return (
       <Layout location={this.props.location}>
-        <div> {user.number} </div>
+        <div> {user.name} </div>
       </Layout>
     );
   }
@@ -24,9 +24,8 @@ class UserPageTemplate extends React.Component {
 export default UserPageTemplate;
 
 export const pageQuery = graphql`
-  query UserByNumber($number: String!) {
-    contentfulUser(number: { eq: $number }) {
-      number
+  query UserBySlug($slug: String!) {
+    contentfulUser(slug: { eq: $slug }) {
       name
     }
   }

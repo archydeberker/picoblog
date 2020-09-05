@@ -63,7 +63,6 @@ export const pageQuery = graphql`
           html
         }
       }
-
       media {
         thumb: fluid(maxWidth: 270, maxHeight: 270) {
           ...GatsbyContentfulFluid
