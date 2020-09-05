@@ -63,11 +63,7 @@ export const pageQuery = graphql`
           html
         }
       }
-      coverImage {
-        fluid(maxWidth: 1180, background: "rgb:000000") {
-          ...GatsbyContentfulFluid_tracedSVG
-        }
-      }
+
       media {
         thumb: fluid(maxWidth: 270, maxHeight: 270) {
           ...GatsbyContentfulFluid

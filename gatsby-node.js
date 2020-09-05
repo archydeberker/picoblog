@@ -6,6 +6,7 @@ exports.createPages = ({ graphql, actions }) => {
 
   return new Promise((resolve, reject) => {
     const blogPost = path.resolve("./src/templates/blog-post.js");
+    const userPage = path.resolve("./src/templates/user-page.js");
     resolve(
       graphql(
         `
@@ -19,6 +20,16 @@ exports.createPages = ({ graphql, actions }) => {
                   body {
                     body
                   }
+                  user {
+                    number
+                  }
+                }
+              }
+            }
+            allContentfulUser {
+              edges {
+                node {
+                  number
                 }
               }
             }
@@ -33,10 +44,22 @@ exports.createPages = ({ graphql, actions }) => {
         const posts = result.data.allContentfulPost.edges;
         posts.forEach((post) => {
           createPage({
-            path: `/blog/${post.node.slug}/`,
+            path: `/blog/${post.node.user.number}/${post.node.slug}/`,
             component: blogPost,
             context: {
               slug: post.node.slug,
+            },
+          });
+        });
+
+        const users = result.data.allContentfulUser.edges;
+
+        users.forEach((user) => {
+          createPage({
+            path: `/blog/${user.node.number}`,
+            component: userPage,
+            context: {
+              number: user.node.number,
             },
           });
         });
