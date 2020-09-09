@@ -57,7 +57,7 @@ export const pageQuery = graphql`
       }
     }
     allContentfulPerson(
-      filter: { contentful_id: { eq: "15jwOBqpxqSAOy2eOO4S0m" } }
+      filter: { contentful_id: { eq: "6sD4WtFXItM563YZpp4Va5" } }
     ) {
       edges {
         node {
@@ -70,7 +70,7 @@ export const pageQuery = graphql`
             fluid(
               maxWidth: 1180
               maxHeight: 480
-              resizingBehavior: PAD
+              resizingBehavior: CROP
               background: "rgb:000000"
             ) {
               ...GatsbyContentfulFluid_tracedSVG
