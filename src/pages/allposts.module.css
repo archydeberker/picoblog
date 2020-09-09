@@ -1,0 +1,10 @@
+.hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
+  max-height: 400px;
+  background: #eee;
+  font-size: 2em;
+  overflow: hidden;
+}
